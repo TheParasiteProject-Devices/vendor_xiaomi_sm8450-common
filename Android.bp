@@ -406,13 +406,13 @@ cc_prebuilt_library_shared {
 		none: true,
 	},
 	target: {
-		: {
+		android_arm: {
 			srcs: ["proprietary/vendor/lib/vendor.qti.qspmhal@1.0.so"],
-			shared_libs: [ ],
+			shared_libs: ["libhidlbase", "liblog", "libutils", "libcutils", "libc++", "libc", "libm", "libdl", ],
 		},
-		: {
+		android_arm64: {
 			srcs: ["proprietary/vendor/lib64/vendor.qti.qspmhal@1.0.so"],
-			shared_libs: [ ],
+			shared_libs: ["libhidlbase", "liblog", "libutils", "libcutils", "libc++", "libc", "libm", "libdl", ],
 		},
 	},
 	compile_multilib: "both",
@@ -8577,9 +8577,9 @@ cc_prebuilt_library_shared {
 		none: true,
 	},
 	target: {
-		: {
+		android_arm64: {
 			srcs: ["proprietary/vendor/lib64/vendor.qti.qspmhal@1.0-impl.so"],
-			shared_libs: [ ],
+			shared_libs: ["libutils", "vendor.qti.qspmhal@1.0", "android.hidl.allocator@1.0", "android.hidl.memory@1.0", "libhidlbase", "libhidlmemory", "liblog", "libcutils", "libc++", "libc", "libm", "libdl", ],
 		},
 	},
 	compile_multilib: "64",
@@ -11214,11 +11214,20 @@ cc_prebuilt_binary {
 	soc_specific: true,
 }
 
-sh_binary {
+cc_prebuilt_binary {
 	name: "vendor.qti.qspmhal@1.0-service",
 	owner: "xiaomi",
-	src: "proprietary/vendor/bin/vendor.qti.qspmhal@1.0-service",
-	filename: "vendor.qti.qspmhal@1.0-service",
+	target: {
+		android_arm64: {
+			srcs: ["proprietary/vendor/bin/vendor.qti.qspmhal@1.0-service"],
+			shared_libs: ["vendor.qti.qspmhal@1.0", "vendor.qti.qspmhal@1.0-impl", "libhidlbase", "liblog", "libutils", "libavservices_minijail", "libc++", "libc", "libm", "libdl", ],
+		},
+	},
+	compile_multilib: "64",
+	strip: {
+		none: true,
+	},
+	prefer: true,
 	soc_specific: true,
 }
 
